@@ -1,0 +1,45 @@
+## =============================================
+## .gitignore cho dự án ASP.NET Core (WebsitePhim)
+## =============================================
+
+# ---- Thư mục build của Visual Studio ----
+.vs/
+[Bb]in/
+[Oo]bj/
+out/
+publish/
+
+# ---- File cấu hình cá nhân của Visual Studio ----
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---- NuGet ----
+*.nupkg
+**/[Pp]ackages/
+project.lock.json
+
+# ---- File log ----
+*.log
+logs/
+
+# ---- SQL Server & Database cục bộ ----
+*.mdf
+*.ldf
+*.db
+*.sqlite
+
+# ---- File nhạy cảm (Secrets) ----
+.env
+.env.*
+secrets.json
+
+# ---- Ảnh do người dùng upload ----
+wwwroot/images/movies/*
+!wwwroot/images/movies/.gitkeep
+!wwwroot/images/movies/no-image.png
+
+# ---- macOS & Windows rác ----
+.DS_Store
+Thumbs.db
