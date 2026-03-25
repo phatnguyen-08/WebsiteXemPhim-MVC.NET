@@ -14,18 +14,27 @@ kèm Admin Panel quản lý toàn bộ nội dung.
 👤 Người dùng (User)
 
 Trang chủ — Danh sách phim mới nhất, phim nổi bật.
+
 Lọc & Tìm kiếm — Theo tên phim, thể loại, năm phát hành.
+
 Chi tiết phim — Mô tả, poster, trailer/tập phim nhúng từ YouTube.
+
 Tương tác — Đăng nhập để bình luận và chấm điểm (Rating ⭐).
+
 Phụ đề — Hỗ trợ hiển thị thông tin phụ đề đa ngôn ngữ.
 
 🔐 Quản trị viên (Admin)
 
 Quản lý phim — CRUD đầy đủ: thêm, sửa, ẩn/hiện phim.
+
 Quản lý tập phim — Thêm tập cho phim bộ.
+
 Quản lý người dùng — Danh sách thành viên, phân quyền Admin/User, khóa/mở khóa tài khoản.
+
 Quản lý thể loại — Thêm/sửa/xóa danh mục thể loại phim.
+
 Xử lý YouTube thông minh — Tự động trích xuất Video ID từ nhiều dạng URL YouTube khác nhau để nhúng trình phát.
+
 
 
 🛠 Công nghệ sử dụng
@@ -80,17 +89,29 @@ Mật khẩu Admin@123user@gmail.com  User@123
 
 
 📁 Cấu trúc dự án
+
 WebsitePhim/
+
 ├── Areas/
+
 │   └── Admin/              # Khu vực quản trị (Admin Panel)
+
 │       ├── Controllers/
+
 │       └── Views/
+
 ├── Controllers/            # Controller phía người dùng
+
 ├── Models/                 # Entity models & ViewModels
+
 ├── Views/                  # Razor Views phía người dùng
+
 ├── wwwroot/                # Static files (CSS, JS, Images)
+
 │   └── images/movies/      # Ảnh poster phim (upload)
+
 ├── appsettings.json        # Cấu hình ứng dụng
+
 └── Program.cs              # Entry point & Seed Data
 
 📩 Liên hệ
