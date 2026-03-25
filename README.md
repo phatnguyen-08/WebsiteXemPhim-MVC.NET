@@ -1,7 +1,9 @@
 🎬 WebsitePhim — Hệ thống Quản lý & Xem Phim Trực tuyến
 
-Ứng dụng web xây dựng bằng ASP.NET Core 8 MVC, cho phép người dùng khám phá phim, xem trailer YouTube, bình luận & đánh giá — kèm Admin Panel quản lý toàn bộ nội dung.
+Ứng dụng web xây dựng bằng ASP.NET Core 8 MVC, cho phép người dùng khám phá phim, xem trailer YouTube, bình luận & đánh giá — 
+kèm Admin Panel quản lý toàn bộ nội dung.
 ✨ Tính năng nổi bật
+
 <img width="486" height="643" alt="image" src="https://github.com/user-attachments/assets/05486a39-815e-49b3-b444-cb545d31eabc" />
 <img width="489" height="485" alt="image" src="https://github.com/user-attachments/assets/a1e165e5-dd70-4d60-b85d-c9b9b3f09a39" />
 <img width="503" height="254" alt="image" src="https://github.com/user-attachments/assets/22bbc944-c5ea-4d09-a1a2-79b156500d76" />
@@ -27,7 +29,19 @@ Xử lý YouTube thông minh — Tự động trích xuất Video ID từ nhiề
 
 
 🛠 Công nghệ sử dụng
-LayerCông nghệBackendASP.NET Core 8.0 MVCORMEntity Framework Core 8DatabaseMicrosoft SQL ServerAuthenticationASP.NET Core IdentityFrontendHTML5, CSS3, JavaScript, Bootstrap 5IconsFont Awesome
+Layer Công nghệ 
+
+Backend ASP.NET Core 8.0 MVC
+
+ORM Entity Framework Core 8
+
+Database Microsoft SQL Server
+
+Authentication ASP.NET Core Identity
+
+Frontend HTML5, CSS3, JavaScript, Bootstrap 5
+
+Icons Font Awesome
 
 🚀 Hướng dẫn cài đặt
 Yêu cầu hệ thống
@@ -58,7 +72,9 @@ bashdotnet run
 Hoặc nhấn F5 trong Visual Studio. Website sẽ chạy tại https://localhost:xxxx.
 
 📝 Tài khoản dùng thử
-Vai tròEmailMật khẩuAdminadmin@websitephim.comAdmin@123Useruser@gmail.comUser@123
+Vai trò  Admin                    User
+Email    admin@websitephim.com    user@gmail.com
+Mật khẩu Admin@123user@gmail.com  User@123
 
 ⚠️ Ứng dụng tự động tạo các tài khoản mẫu và dữ liệu thể loại phim khi khởi chạy lần đầu (Seed Data trong Program.cs).
 
