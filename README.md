@@ -2,7 +2,12 @@
 
 Ứng dụng web xây dựng bằng ASP.NET Core 8 MVC, cho phép người dùng khám phá phim, xem trailer YouTube, bình luận & đánh giá — kèm Admin Panel quản lý toàn bộ nội dung.
 ✨ Tính năng nổi bật
-
+<img width="486" height="643" alt="image" src="https://github.com/user-attachments/assets/05486a39-815e-49b3-b444-cb545d31eabc" />
+<img width="489" height="485" alt="image" src="https://github.com/user-attachments/assets/a1e165e5-dd70-4d60-b85d-c9b9b3f09a39" />
+<img width="503" height="254" alt="image" src="https://github.com/user-attachments/assets/22bbc944-c5ea-4d09-a1a2-79b156500d76" />
+<img width="493" height="291" alt="image" src="https://github.com/user-attachments/assets/965e9997-2547-4026-a2db-2812cf5e7277" />
+<img width="490" height="296" alt="image" src="https://github.com/user-attachments/assets/b98f7aab-adb4-4349-a512-7a1b639e873c" />
+<img width="485" height="245" alt="image" src="https://github.com/user-attachments/assets/f682099f-c8b8-495c-a860-7db8e1f76e3b" />
 
 👤 Người dùng (User)
 
