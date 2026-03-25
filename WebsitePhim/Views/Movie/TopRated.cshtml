@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebsitePhim.Models.Movie>
+
+@{
+    ViewData["Title"] = "Top 10 phim được đánh giá cao nhất";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">🎬 Top 10 phim xuất sắc theo đánh giá</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ảnh</th>
+            <th>Tiêu đề</th>
+            <th>Thể loại</th>
+            <th>Điểm TB</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            var avg = m.Ratings.Average(r => r.Value);
+            <tr>
+                <td><img src="@m.ImageUrl" style="width:80px;" /></td>
+                <td>@m.Title</td>
+                <td>@m.Genre?.Name</td>
+                <td>@avg.ToString("0.0")/10</td>
+                <td><a asp-action="Details" asp-route-id="@m.Id" class="btn btn-sm btn-primary">Xem</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

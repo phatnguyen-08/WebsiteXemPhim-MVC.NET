@@ -1,0 +1,148 @@
+﻿@model WebsitePhim.Models.Movie
+
+@{
+    ViewData["Title"] = "Chi tiết phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chi tiết phim</h1>
+
+<div>
+    <h4>@Model.Title</h4>
+
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.Title" style="max-width: 300px; margin-bottom: 15px;" />
+    }
+
+    <dl class="row">
+        <dt class="col-sm-2">Thể loại:</dt>
+        <dd class="col-sm-10">@Model.Genre?.Name </dd>
+
+        <dt class="col-sm-2">Mô tả:</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+
+        <dt class="col-sm-2">Video:</dt>
+        <dd class="col-sm-10">
+            <iframe width="600" height="350" src="@Model.VideoUrl" frameborder="0" allowfullscreen></iframe>
+        </dd>
+
+        <dt class="col-sm-2">Đánh giá:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Ratings?.Any() ?? false)
+            {
+                var avg = Model.Ratings.Average(r => r.Value);
+                for (int i = 1; i <= 10; i++)
+                {
+                    <text>@(i <= avg ? "⭐" : "☆")</text>
+                }
+                <span> @($"{avg:0.0}/10 từ {Model.Ratings.Count} lượt")</span>
+            }
+            else
+            {
+                <span>Chưa có đánh giá</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Bình luận:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Comments?.Any() ?? false)
+            {
+                <ul>
+                    @foreach (var cmt in Model.Comments)
+                    {
+                        <li>📅 <i>@cmt.CreatedAt.ToShortDateString()</i>: @cmt.Content</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Chưa có bình luận</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Phụ đề:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Subtitles?.Any() ?? false)
+            {
+                <ul>
+                    @foreach (var sub in Model.Subtitles)
+                    {
+                        <li><a href="@sub.FileUrl">@sub.Language.ToUpper()</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Không có phụ đề</span>
+            }
+        </dd>
+        <dt class="col-sm-2">Tập phim:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Episodes?.Any() ?? false)
+            {
+                foreach (var ep in Model.Episodes.OrderBy(e => e.EpisodeNumber))
+                {
+                    <a asp-controller="Episode" asp-action="Play"
+                       asp-route-id="@ep.Id"
+                       class="btn btn-sm btn-outline-primary me-2 mb-2">
+                        Tập @ep.EpisodeNumber
+                    </a>
+                }
+            }
+            else
+            {
+                <p>🎞️ Chưa có tập phim nào</p>
+            }
+        </dd>
+
+
+
+    <hr />
+    <h5>Thêm bình luận</h5>
+    <form asp-action="AddComment" method="post">
+        <input type="hidden" name="MovieId" value="@Model.Id" />
+        <div class="form-group">
+            <textarea name="Content" class="form-control" rows="3" placeholder="Viết bình luận..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary mt-2">Gửi</button>
+    </form>
+
+    <h5 class="mt-4">Chấm điểm phim</h5>
+    <form asp-action="AddRating" method="post">
+        <input type="hidden" name="MovieId" value="@Model.Id" />
+        <div class="form-group">
+            <div id="star-container">
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <label>
+                        <input type="radio" name="Value" value="@i" style="display:none;" />
+                        <span class="star" style="font-size: 24px; cursor: pointer;">☆</span>
+                    </label>
+                }
+            </div>
+            <button type="submit" class="btn btn-sm btn-success mt-2">Gửi đánh giá</button>
+        </div>
+    </form>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>
+
+@section Scripts {
+    <script>
+        const stars = document.querySelectorAll("#star-container .star");
+        const radios = document.querySelectorAll("#star-container input[type='radio']");
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", () => {
+                stars.forEach((s, i) => {
+                    s.textContent = i <= index ? "⭐" : "☆";
+                    radios[i].checked = i === index;
+                });
+            });
+        });
+    </script>
+}

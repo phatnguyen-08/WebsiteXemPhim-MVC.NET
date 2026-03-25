@@ -1,0 +1,190 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng ký</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: url('https://wallpapers.com/images/hd/netflix-background-gs7hjuwvv2g0e9fj.jpg') no-repeat center center fixed;
+            background-size: cover;
+            padding-top: 80px; /* Đẩy nội dung xuống dưới header */
+        }
+
+        .register-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px); /* Trừ chiều cao header */
+        }
+
+        .register-box {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 420px;
+            color: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #222;
+            color: white;
+            border: 1px solid #555;
+        }
+
+            .form-control::placeholder {
+                color: #aaa;
+            }
+
+        .form-floating label {
+            color: #bbb;
+        }
+
+        .btn-warning {
+            background-color: #ff8800;
+            border: none;
+        }
+
+            .btn-warning:hover {
+                background-color: #ff6a00;
+            }
+
+        .text-muted a {
+            color: #ff8800;
+        }
+
+            .text-muted a:hover {
+                text-decoration: underline;
+            }
+
+        .navbar-brand img {
+            max-height: 42px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav.navbar {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .nav-link {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/WebsitePhim_Logo.png" alt="Logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Movie" asp-action="Index">Trang chủ</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Register Form -->
+    <div class="register-wrapper">
+        <div class="register-box">
+            <h2 class="text-center text-warning mb-4">Tạo tài khoản mới</h2>
+
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FullName" class="form-control" placeholder="Họ và tên" />
+                    <label asp-for="Input.FullName">Họ và tên</label>
+                    <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" placeholder="Mật khẩu" />
+                    <label asp-for="Input.Password">Mật khẩu</label>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Xác nhận mật khẩu" />
+                    <label asp-for="Input.ConfirmPassword">Xác nhận mật khẩu</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                        <option disabled selected>-- Chọn vai trò --</option>
+                    </select>
+                    <label asp-for="Input.Role">Vai trò</label>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100 fw-bold">Đăng ký</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <small>Bạn đã có tài khoản? <a asp-page="/Login">Đăng nhập</a></small>
+            </div>
+            @if (Model.ExternalLogins?.Count > 0)
+            {
+                <div class="text-center mt-4">
+                    <p class="text-muted mb-2">Hoặc đăng ký bằng:</p>
+                    <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-flex flex-wrap justify-content-center gap-2">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit" class="btn btn-outline-light" name="provider" value="@provider.Name">
+                                @provider.DisplayName
+                            </button>
+                        }
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

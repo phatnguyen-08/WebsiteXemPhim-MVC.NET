@@ -1,0 +1,101 @@
+﻿@model List<WebsitePhim.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Quản lý Người dùng";
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="h5 mb-0 text-gray-800">Danh sách Người dùng</h4>
+            <div>
+                <a asp-area="Admin" asp-controller="UserAD" asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus"></i> Thêm Người dùng mới
+                </a>
+                <a asp-area="Admin" asp-controller="MovieAD" asp-action="Index" class="btn btn-secondary btn-sm ml-2">
+                    <i class="fas fa-film"></i> Quản lý Phim
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-info text-center" role="alert">
+                Chưa có người dùng nào trong hệ thống.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 50px;">ID</th>
+                            <th>Tên người dùng</th>
+                            <th>Email</th>
+                            <th>Họ và tên</th>
+                            <th>Địa chỉ</th>
+                            <th>Tuổi</th>
+                            <th>Trạng thái</th>
+                            <th>Vai trò</th>
+                            <th>Ngày tạo</th>
+                            <th style="width: 200px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(item.Id.Substring(0, 4))...</td> @* Hiển thị một phần ID để tiết kiệm không gian *@
+                                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                                <td>
+                                    <span class="badge @(item.IsActive ? "badge-success" : "badge-danger")">
+                                        @(item.IsActive ? "Hoạt động" : "Bị khóa")
+                                    </span>
+                                </td>
+                                <td>
+                                    @{
+                                        var userRoles = ViewBag.UserRoles as Dictionary<string, IList<string>>;
+                                        if (userRoles != null && userRoles.ContainsKey(item.Id))
+                                        {
+                                            <span>@string.Join(", ", userRoles[item.Id])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>(Không có vai trò)</span>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                </td>
+                                <td>
+                                    <a asp-area="Admin" asp-controller="UserAD" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="UserAD" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info ml-1">
+                                        <i class="fas fa-info-circle"></i> Chi tiết
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="UserAD" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger ml-1">
+                                        <i class="fas fa-user-slash"></i> Khóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        // Các script riêng cho trang này nếu cần
+    }
+}

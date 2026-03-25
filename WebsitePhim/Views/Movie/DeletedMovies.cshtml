@@ -1,0 +1,48 @@
+﻿@model List<WebsitePhim.Models.Movie>
+
+@{
+    ViewData["Title"] = "Danh sách phim đã bị ẩn";
+}
+
+<h2>Danh sách phim đã bị ẩn</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Title)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Description)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Genre)</th>
+                <th>Video</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.Genre?.Name</td>
+                    <td>
+                        <video width="200" controls>
+                            <source src="@item.VideoUrl" type="video/mp4">
+                        </video>
+                    </td>
+                    <td>
+                        <form asp-action="Restore" asp-route-id="@item.Id" method="post">
+                            <button type="submit" class="btn btn-success btn-sm">Khôi phục</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-warning">Không có phim nào bị ẩn.</p>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Quay lại danh sách phim</a>

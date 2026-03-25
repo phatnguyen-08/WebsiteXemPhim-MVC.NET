@@ -1,0 +1,76 @@
+﻿@model WebsitePhim.Models.Movie
+
+@{
+    ViewData["Title"] = "Thêm phim mới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Thêm phim mới</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" required></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GenreId">Thể loại</label>
+                <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-control" required></select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label>Nhập ID video YouTube</label>
+                <input asp-for="VideoUrl" class="form-control" placeholder="Ví dụ: dQw4w9WgXcQ" required />
+                <span asp-validation-for="VideoUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Chọn ảnh phim</label>
+                <input type="file" name="imageFile" class="form-control" accept="image/*" onchange="previewImage(event)" required />
+                <img id="imagePreview" src="" alt="Ảnh phim" style="max-width: 200px; margin-top: 10px; display: none;" />
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> Ẩn phim
+                </label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Lưu phim</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

@@ -1,0 +1,74 @@
+﻿@model List<WebsitePhim.Models.Movie>
+
+@{
+    ViewData["Title"] = "Quản lý Phim"; // Tiêu đề này sẽ hiển thị ở <title> và trong header của layout
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="h5 mb-0 text-gray-800">Danh sách Phim</h4>
+            <div>
+                <a asp-area="Admin" asp-controller="MovieAD" asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Thêm Phim mới
+                </a>
+                <!-- Thêm nút "Phim Đã Ẩn" ở đây -->
+                <a asp-area="Admin" asp-controller="MovieAD" asp-action="DeletedMovies" class="btn btn-info btn-sm ml-2">
+                    <i class="fas fa-trash"></i> Phim Đã Ẩn
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-info text-center" role="alert">
+                Chưa có phim nào được thêm vào hệ thống.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 50px;">ID</th>
+                            <th>Tiêu đề</th>
+                            <th>Năm Phát Hành</th>
+                            <th>Thể loại</th>
+                            <th style="width: 180px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ReleaseYear)</td>
+                                <td>
+                                    @(item.Genre != null ? item.Genre.Name : "N/A")
+                                </td>
+                                <td>
+                                    <a asp-area="Admin" asp-controller="MovieAD" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+
+                                    <a asp-area="Admin" asp-controller="MovieAD" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger ml-1">
+                                        <i class="fas fa-trash-alt"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        // Các script riêng cho trang này, ví dụ thư viện DataTables để tìm kiếm, phân trang
+    }
+}

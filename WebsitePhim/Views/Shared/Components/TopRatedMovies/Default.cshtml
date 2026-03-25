@@ -1,0 +1,16 @@
+﻿@model IEnumerable<WebsitePhim.Models.Movie>
+
+<h5 class="mt-4">🔥 Top phim nổi bật</h5>
+<ul class="list-group">
+    @foreach (var movie in Model)
+    {
+        var avg = movie.Ratings.Any() ? movie.Ratings.Average(r => r.Value) : 0;
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>@movie.Title</strong> – @movie.Genre?.Name <br />
+                <small>⭐ @avg.ToString("0.0")</small>
+            </div>
+            <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-sm btn-primary">Xem</a>
+        </li>
+    }
+</ul>

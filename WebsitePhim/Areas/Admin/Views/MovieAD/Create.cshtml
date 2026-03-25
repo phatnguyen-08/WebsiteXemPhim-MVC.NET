@@ -1,0 +1,68 @@
+﻿@model WebsitePhim.Models.Movie
+
+@{
+    ViewData["Title"] = "Thêm Phim Mới";
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <h4 class="h5 mb-0 text-gray-800">Thêm Phim Mới</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label">Tên Phim</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ReleaseYear" class="control-label">Năm Phát Hành</label>
+                <input asp-for="ReleaseYear" class="form-control" type="number" min="1900" max="@DateTime.Now.Year" />
+                <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="GenreId" class="control-label">Thể loại</label>
+                <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genres"></select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VideoUrl" class="control-label">ID Video YouTube</label>
+                <input asp-for="VideoUrl" class="form-control" placeholder="Chỉ nhập ID video YouTube, ví dụ: dQw4w9WgXcQ" />
+                <span asp-validation-for="VideoUrl" class="text-danger"></span>
+                <small class="form-text text-muted">Chỉ cần nhập phần ID sau "v=" trong URL YouTube (ví dụ: `youtube.com/watch?v=dQw4w9WgXcQ` thì nhập `dQw4w9WgXcQ`)</small>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="imageFile" class="control-label">Ảnh Poster (nếu có)</label>
+                <input type="file" id="imageFile" name="imageFile" class="form-control-file" accept="image/*" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-start gap-2">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Thêm Phim</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2"><i class="fas fa-arrow-left"></i> Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

@@ -1,0 +1,48 @@
+﻿<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-darkflix fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/images/WebsitePhim_Logo.png" alt="WebsitePhim Logo" style="height: 35px;">
+               
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Movie/Index">Phim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Genre/Index">Thể loại</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <form class="d-flex me-3">
+                        <input class="form-control me-2 bg-darkflix-search text-white border-0" type="search" placeholder="Tìm kiếm phim..." aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">
+                             <i class="bi bi-search"></i> 
+                        </button>
+                    </form>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/images/user-avatar.png" alt="User Avatar" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-darkflix-dropdown" aria-labelledby="navbarDropdownUser">
+                                <li><a class="dropdown-item text-white" href="#">Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item text-white" href="#">Danh sách yêu thích</a></li>
+                                <li><hr class="dropdown-divider bg-secondary"></li>
+                                <li><a class="dropdown-item text-white" href="#">Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

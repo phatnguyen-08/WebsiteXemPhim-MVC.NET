@@ -1,0 +1,133 @@
+﻿@model WebsitePhim.Models.Movie
+
+@{
+    ViewData["Title"] = "Chi Tiết Phim";
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <h4 class="h5 mb-0 text-gray-800">Chi Tiết Phim: @Model.Title</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Title Poster" class="img-fluid rounded" />
+                }
+                else
+                {
+                    <img src="/images/no-image.png" alt="No Image" class="img-fluid rounded" />
+                }
+            </div>
+            <div class="col-md-8">
+                <dl class="row">
+                    <dt class="col-sm-3">Tên Phim:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+                    <dt class="col-sm-3">Mô tả:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                    <dt class="col-sm-3">Năm Phát Hành:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.ReleaseYear)</dd>
+
+                    <dt class="col-sm-3">Thể loại:</dt>
+                    <dd class="col-sm-9">@(Model.Genre?.Name ?? "N/A")</dd>
+
+                    <dt class="col-sm-3">Trạng thái:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @(Model.IsDeleted ? "badge-danger" : "badge-success")">
+                            @(Model.IsDeleted ? "Đã ẩn" : "Đang hiển thị")
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-3">Ngày tạo:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedAt)</dd>
+
+                    <dt class="col-sm-3">ID Video YouTube:</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.VideoUrl))
+                        {
+                            <a href="@Model.VideoUrl" target="_blank">@Model.VideoUrl</a>
+                        }
+                        else
+                        {
+                            <span>Chưa có video</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">Điểm đánh giá TB:</dt>
+                    <dd class="col-sm-9">
+                        @(Model.Ratings != null && Model.Ratings.Any() ? $"{Model.Ratings.Average(r => r.Value):F1}/10" : "Chưa có đánh giá")
+                    </dd>
+
+                    <dt class="col-sm-3">Số bình luận:</dt>
+                    <dd class="col-sm-9">@(Model.Comments?.Count() ?? 0)</dd>
+
+                    <dt class="col-sm-3">Số phụ đề:</dt>
+                    <dd class="col-sm-9">@(Model.Subtitles?.Count() ?? 0)</dd>
+                </dl>
+            </div>
+        </div>
+
+        <hr />
+
+        <h5>Bình luận của người dùng (@(Model.Comments?.Count() ?? 0))</h5>
+        @if (Model.Comments != null && Model.Comments.Any())
+        {
+            <ul class="list-group mb-3">
+                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@comment.ApplicationUser?.UserName (ID: @comment.ApplicationUserId?.Substring(0, 4)...)</strong>: @comment.Content
+                            <br /><small class="text-muted">(@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" title="Xóa bình luận này"><i class="fas fa-trash"></i></button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">Chưa có bình luận nào cho phim này.</p>
+        }
+
+        <hr />
+
+        <h5>Đánh giá của người dùng (@(Model.Ratings?.Count() ?? 0))</h5>
+        @if (Model.Ratings != null && Model.Ratings.Any())
+        {
+            <ul class="list-group">
+                @foreach (var rating in Model.Ratings.OrderByDescending(r => r.CreatedAt))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@rating.ApplicationUser?.UserName (ID: @rating.ApplicationUserId?.Substring(0, 4)...)</strong>: @rating.Value/10 <i class="fas fa-star text-warning"></i>
+                            <br /><small class="text-muted">(@rating.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" title="Xóa đánh giá này"><i class="fas fa-trash"></i></button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">Chưa có đánh giá nào cho phim này.</p>
+        }
+
+
+        <div class="mt-4 d-flex justify-content-start gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fas fa-edit"></i> Sửa</a>
+            @if (!Model.IsDeleted)
+            {
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger ml-2"><i class="fas fa-trash-alt"></i> Ẩn Phim</a>
+            }
+            <a asp-action="Index" class="btn btn-secondary ml-2"><i class="fas fa-arrow-left"></i> Quay lại danh sách</a>
+        </div>
+    </div>
+</div>@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
